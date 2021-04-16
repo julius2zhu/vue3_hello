@@ -1,23 +1,31 @@
 <template>
   <div id="nav">
-    <button @click="isShow=!isShow">isShow</button>
-    <Child1 v-if="isShow"/>
+    <h1>App父级组件</h1>
+    <h2>{{ msg }}</h2>
+    <button @click="msg+='==='">更新数据</button>
+    <hr/>
+    <Child :msg="msg" num="1234" @xxx="xxx"/>
   </div>
 </template>
 <script lang="ts">
 import {defineComponent, ref} from "vue";
-import Child1 from "@/components/Child1.vue";
+import Child from './components/Child'
 
 export default defineComponent({
   name: 'app',
   setup() {
-    let isShow = ref(true)
+    const msg = ref('测试');
+
+    function xxx(str: string) {
+      msg.value += str
+    }
+
     return {
-      isShow
+      msg, xxx
     }
   },
   components: {
-    Child1
+    Child
   }
 })
 </script>

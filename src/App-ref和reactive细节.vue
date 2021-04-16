@@ -1,0 +1,49 @@
+<template>
+  <div id="nav">
+    <h2>reactive和ref细节问题</h2>
+    <h3>m1:{{ m1 }}</h3>
+    <h3>m2:{{ m2 }}</h3>
+    <h3>m3:{{ m3 }}</h3>
+    <hr/>
+    <button @click="updateData">更新数据</button>
+  </div>
+</template>
+<script lang="ts">
+import {defineComponent, ref, reactive} from "vue";
+
+export default defineComponent({
+  name: 'app',
+  setup() {
+    const m1 = ref('abc')
+    const m2 = reactive({
+      name: '小朱',
+      age: 24
+    })
+    //ref可以传递对象吗
+    const m3 = ref({
+      name: '小朱',
+      age: 24
+    })
+
+    function updateData() {
+      m1.value += 'aaa'
+      m2.name += '朱朱'
+      m3.value.name+='朱朱'
+    }
+
+    return {
+      m1, m2, m3,
+      updateData
+    }
+  }
+})
+</script>
+<style lang="stylus">
+#app
+  font-family Avenir, Helvetica, Arial, sans-serif
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  text-align center
+  color #2c3e50
+  margin-top 60px
+</style>

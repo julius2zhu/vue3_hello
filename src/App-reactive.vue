@@ -1,23 +1,31 @@
 <template>
   <div id="nav">
-    <button @click="isShow=!isShow">isShow</button>
-    <Child1 v-if="isShow"/>
+    <h2>setup和ref的使用</h2>
+    name: {{ user.name }}
+    age: {{ user.age }}
+    <button @click="updateUser">update</button>
   </div>
 </template>
 <script lang="ts">
-import {defineComponent, ref} from "vue";
-import Child1 from "@/components/Child1.vue";
+import {defineComponent, reactive} from "vue";
 
 export default defineComponent({
   name: 'app',
   setup() {
-    let isShow = ref(true)
-    return {
-      isShow
+    const user = reactive({
+      name: '小朱',
+      age: 24
+    })
+
+    function updateUser() {
+      user.name = '==小朱'
+      user.age = 25
     }
-  },
-  components: {
-    Child1
+
+    return {
+      user,
+      updateUser
+    }
   }
 })
 </script>
