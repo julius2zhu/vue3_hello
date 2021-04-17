@@ -1,43 +1,27 @@
 <template>
-  <div id="nav">
-    {{ foo2 }}
-    {{ bar2 }}
-    <hr/>
-    <input type="text" ref="inputRef">
-  </div>
+  <h1>provide和inject</h1>
+  <h2>color:{{ color }}</h2>
+  <button @click="color='red'">red</button>
+  <button @click="color='yellow'">yellow</button>
+  <button @click="color='green'">green</button>
+  <hr/>
+  <Child2/>
 </template>
 <script lang="ts">
-import {defineComponent, reactive, toRefs, ref, onMounted} from "vue";
+import {defineComponent, ref, provide} from "vue";
+import Child2 from "@/components/Child2.vue";
 
 export default defineComponent({
   name: 'app',
   setup() {
-    function useReatureX() {
-      const state = reactive({
-        foo2: 'a',
-        bar2: 'b',
-      })
-
-      setInterval(() => {
-        state.foo2 += '++'
-        state.bar2 += '++'
-      }, 1000);
-
-      return toRefs(state)
-    }
-    const inputRef = ref<HTMLElement | null>(null)
-    /**
-     * 页面挂载之后回调函数
-     */
-    onMounted(() => {
-      inputRef.value&&inputRef.value.focus()
-      console.log('run')
-    })
-    const {foo2, bar2} = useReatureX()
-
+    const color = ref('red')
+    provide('color', color)
     return {
-      foo2, bar2, inputRef
+      color
     }
+  },
+  components: {
+    Child2
   }
 })
 </script>
